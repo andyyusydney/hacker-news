@@ -1,0 +1,16 @@
+<mat-icon class="search-icon">search</mat-icon>
+
+<input type="text"
+       class="search"
+       [formControl]="searchControl"
+       placeholder="Search...">
+<input type="submit" class="submit" vlaue="">
+
+<button mat-button
+        class="clear"
+        *ngIf="searchControl.value"
+        mat-icon-button
+        aria-label="Clear"
+        (click)="searchControl.reset('')">
+  X
+</button>
