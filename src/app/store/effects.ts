@@ -4,8 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './state';
 import {
     debounceTime,
-    switchMap,
-    map,
+    switchMap
 } from 'rxjs/operators';
 import { HackerNewsService } from '../services';
 import { ActionTypes, saveSearchResultsAction, toggleSearchProgressAction } from './actions';
@@ -23,7 +22,6 @@ export class AppEffects {
     ofType(ActionTypes.SEARCH_FOR_ARTICLES),
     debounceTime(500),
     switchMap((action:any) => {
-        //console.log('action=', action);
         this._store.dispatch(new toggleSearchProgressAction(true));
 
         return this.dataService.search(action.payload)
@@ -32,7 +30,7 @@ export class AppEffects {
                     new toggleSearchProgressAction(false),
                     new saveSearchResultsAction(res)
                 ])
-            )
+            );
     })
   );
 }

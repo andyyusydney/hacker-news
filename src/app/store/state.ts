@@ -1,15 +1,13 @@
 export interface AppState {
     app: {
-        term: String;
         result: Array<any>;
         currPage: number;
         searchInProgress: boolean;
     }
 }
 
-export const initialState: AppState = {
+export const initialState = {
     app: {
-        term: '',
         result: [],
         currPage: 0,
         searchInProgress: false

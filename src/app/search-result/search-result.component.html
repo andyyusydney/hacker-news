@@ -3,8 +3,8 @@
   loading...
 </div>
 
-<mat-list *ngFor="let item of result$|async">
-  <mat-list-item> {{item.title}} </mat-list-item>
-  <mat-list-item> Salt </mat-list-item>
-  <mat-list-item> Paprika </mat-list-item>
+<mat-list>
+  <mat-list-item *ngFor="let item of result$|async"> {{item.title}} </mat-list-item>
 </mat-list>
+
+<app-paginator (pageChanged)="onPageChanged($event)" [totalPages]="totalPages$|async" [currPage]="currPage$|async"></app-paginator>

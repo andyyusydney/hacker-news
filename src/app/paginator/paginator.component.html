@@ -1,0 +1,3 @@
+<button [disabled]="currPage <= 1" mat-stroked-button color="primary" (click)="pageChanged.emit('prev')">Previous</button>
+Page {{currPage}} of {{totalPages}}
+<button [disabled]="currPage >= totalPages" mat-stroked-button color="primary" (click)="pageChanged.emit('next')">Next</button>

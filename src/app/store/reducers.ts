@@ -5,8 +5,7 @@ export function reducers(state = initialState, action: AppActions): AppState {
   switch (action.type) {
     case ActionTypes.TOGGLE_SEARCH_PROGRESS: {
       return {
-        ...state,
-        ... {
+        app: {
           ...state.app,
           searchInProgress: action.payload ? action.payload : !state.app.searchInProgress
         }
@@ -14,10 +13,27 @@ export function reducers(state = initialState, action: AppActions): AppState {
     }
     case ActionTypes.SAVE_SEARCH_RESULTS: {
       return {
-        ...state,
-        ...{
+        app: {
           ...state.app,
-          result: action.payload
+          result: action.payload,
+          currPage: 1
+        }
+      };
+    }
+    case ActionTypes.MOVE_PAGE: {
+      return {
+        app: {
+          ...state.app,
+          currPage: action.payload === 'prev' ? state.app.currPage - 1 : state.app.currPage + 1
+        }
+      };
+    }
+    case ActionTypes.RESET_SEARCH: {
+      return {
+        app: {
+          ...state.app,
+          result: [],
+          currPage: 0
         }
       };
     }

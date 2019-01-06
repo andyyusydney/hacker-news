@@ -4,7 +4,7 @@ import { distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/state';
-import { searchForArticlesAction } from '../store/actions';
+import { searchForArticlesAction, resetSearchResultsAction } from '../store/actions';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,10 +28,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       takeUntil(this._destroyed),
       distinctUntilChanged(),
       tap(val => {
-        console.log('val=', val);
+        if (val)
         this._store.dispatch(new searchForArticlesAction(val));
       })
     ).subscribe();
+  }
+
+  onReset() {
+    this.searchControl.reset('');
+    this._store.dispatch(new resetSearchResultsAction());
   }
 
   ngOnDestroy() {
