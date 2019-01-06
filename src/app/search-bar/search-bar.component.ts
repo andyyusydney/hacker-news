@@ -4,7 +4,7 @@ import { distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/state';
-import { ActionTypes, searchForArticlesAction, toggleSearchProgressAction } from '../store/actions';
+import { searchForArticlesAction } from '../store/actions';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,8 +15,6 @@ import { ActionTypes, searchForArticlesAction, toggleSearchProgressAction } from
 export class SearchBarComponent implements OnInit, OnDestroy {
   searchControl: FormControl;
   private _destroyed;
-  result$: Observable<Array<any>>;
-  loading$: Observable<boolean>;
 
   constructor(
     private _store: Store<AppState>
@@ -34,22 +32,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this._store.dispatch(new searchForArticlesAction(val));
       })
     ).subscribe();
-
-    this.result$ = this._store.pipe(
-      takeUntil(this._destroyed),
-      select(state => state.app.result),
-      tap(searchResult => {
-        console.log('searchResult=', searchResult);
-      })
-    );
-
-    this.loading$ = this._store.pipe(
-      takeUntil(this._destroyed),
-      select(state => state.app.searchInProgress),
-      tap(searchInProgress => {
-        console.log('searchInProgress=', searchInProgress);
-      })
-    );
   }
 
   ngOnDestroy() {
